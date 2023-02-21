@@ -22,8 +22,18 @@ books: list[Book] = []
 def main_page():
     return render_template(
         template_name_or_list="index.html",
-        books=books
+        ctx_books=enumerate(books)
     )
+
+@app.route('/<id>')
+def current_book(id: str):
+    try:
+        return render_template(
+            template_name_or_list="book.html",
+            ctx_book=books[int(id)]
+        )
+    except:
+        return "Произошла ошибка"
 
 if __name__ == '__main__':
     _: int

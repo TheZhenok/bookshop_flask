@@ -14,12 +14,13 @@
     </style>
 </head>
 <body>
-    {% for b in books %}
+    {% for i, b in ctx_books %}
         <div class="card">
             <h1>{{ b.title }}</h1>
             <h2>{{ b.description }}</h2>
             <h2>{{ b.price }}</h2>
             <h2>{{ b.rate }}</h2>
+            <a href="/{{i}}">More info</a>
         </div>
     {% endfor %}
 </body>

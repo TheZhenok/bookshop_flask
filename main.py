@@ -20,7 +20,10 @@ books: list[Book] = []
 
 @app.route('/')
 def main_page():
-    return str(book.rate)
+    return render_template(
+        template_name_or_list="index.html",
+        books=books
+    )
 
 if __name__ == '__main__':
     _: int
@@ -35,9 +38,10 @@ if __name__ == '__main__':
             list_count=random.randint(100, 600),
             rate_list=[
                 random.randint(1, 10) 
-                for _ in range(random.randint(0, 60))
+                for _ in range(random.randint(1, 60))
             ]
         )
+        books.append(book)
 
     app.run(
         host='localhost',

@@ -7,7 +7,7 @@ from flask import (
     Flask,
     Request,
     Response,
-    render_template
+    render_template,
 )
 from flask.app import Flask as FlaskApp
 
@@ -23,6 +23,22 @@ def main_page():
     return render_template(
         template_name_or_list="index.html",
         ctx_books=enumerate(books)
+    )
+
+@app.route('/search', methods=['GET', 'POST'])
+def search_books():
+    find_data: str = "Песнь огня"
+    result: list[Book] = []
+    for book in books:
+        if find_data.lower() in book.title.lower():
+            result.append(book)
+
+    if len(result) <= 0:
+        return "Book not found!"
+
+    return render_template(
+        template_name_or_list="index.html",
+        ctx_books=enumerate(result)
     )
 
 @app.route('/<id>')
